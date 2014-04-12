@@ -4,27 +4,42 @@
  */
 package desktoptelegram;
 
-import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 /**
  *
  * @author dielson
  */
-public class DesktopTelegram extends JFrame {
+public class DesktopTelegram extends javax.swing.JFrame {
 
     public DesktopTelegram() {
         // init components
+        setTitle("Desktop Telegram");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        messagesList = new DefaultListModel<String>();
+        messagesList.addElement("Mensagem 1");
+        messagesList.addElement("Mensagem 2");
+        list = new JList(messagesList);
+        JScrollPane scrollPane = new JScrollPane(list);
+
+        add(scrollPane, BorderLayout.WEST);
+        setSize(400, 300);
+        pack();
     }
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
-        // TODO code application logic here
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new DesktopTelegram().setVisible(true);
             }
         });
     }
+
+    // variables
+    DefaultListModel<String> messagesList;
+    JList list;
 }
