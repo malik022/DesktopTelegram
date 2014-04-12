@@ -6,14 +6,12 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 
 /**
  * The main application window.
@@ -82,21 +80,18 @@ class MessageItemRender extends JPanel implements ListCellRenderer {
         contactImage = new JLabel();
         add(contactImage, BorderLayout.WEST);
         add(itemTitle, BorderLayout.EAST);
+        setSize(100, 200);
     }
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         MessageItem item = (MessageItem) value;
-
         itemTitle.setText(item.getContactName());
-//            ImageIcon icon = new ImageIcon(item.getIconPath());
         contactImage.setIcon(new ImageIcon(item.getIconPath()));
         if (isSelected) {
             setBackground(Color.yellow);
-//                setForeground(Color.white);
         } else {
             setBackground(Color.white);
-//                setForeground(Color.black);
         }
         return this;
     }
