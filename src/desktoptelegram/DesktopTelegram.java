@@ -1,16 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package desktoptelegram;
 
 import java.awt.BorderLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 /**
- *
+ * The main application window.
  * @author dielson
  */
 public class DesktopTelegram extends javax.swing.JFrame {
@@ -19,14 +16,16 @@ public class DesktopTelegram extends javax.swing.JFrame {
         // init components
         setTitle("Desktop Telegram");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        messagesList = new DefaultListModel<String>();
-        messagesList.addElement("Mensagem 1");
-        messagesList.addElement("Mensagem 2");
-        list = new JList(messagesList);
-        JScrollPane scrollPane = new JScrollPane(list);
+
+        modelList = new DefaultListModel<String>();
+        modelList.addElement("Mensagem 1");
+        modelList.addElement("Mensagem 2");
+
+        messagesList = new JList(modelList);
+        messagesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scrollPane = new JScrollPane(messagesList);
 
         add(scrollPane, BorderLayout.WEST);
-        setSize(400, 300);
         pack();
     }
 
@@ -40,6 +39,6 @@ public class DesktopTelegram extends javax.swing.JFrame {
     }
 
     // variables
-    DefaultListModel<String> messagesList;
-    JList list;
+    DefaultListModel<String> modelList;
+    JList messagesList;
 }
