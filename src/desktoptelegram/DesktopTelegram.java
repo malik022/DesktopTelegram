@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -12,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
 
 /**
  * The main application window.
@@ -20,6 +23,7 @@ import javax.swing.ListSelectionModel;
 public class DesktopTelegram extends javax.swing.JFrame {
 
     public DesktopTelegram() {
+        logger.setLevel(Level.ALL);
         setTitle("Desktop Telegram");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -35,6 +39,7 @@ public class DesktopTelegram extends javax.swing.JFrame {
 
         add(scrollPane, BorderLayout.WEST);
         pack();
+        setLocationRelativeTo(null);
     }
 
     public static void main(String[] args) {
@@ -49,6 +54,7 @@ public class DesktopTelegram extends javax.swing.JFrame {
     // variables ---------------------------------------------------------------
     JList messagesList;
     private List<MessageItem> messageItems;
+    static final Logger logger = Logger.getLogger(DesktopTelegram.class.getName());
 }
 
 class MessageItem extends javax.swing.JPanel {
@@ -56,42 +62,62 @@ class MessageItem extends javax.swing.JPanel {
     public MessageItem(String contactName, String iconPath) {
         this.contactName = contactName;
         this.iconPath = iconPath;
+        msgPreview = "";
     }
 
     public String getContactName() {
         return contactName;
     }
-
+    public String getMsgPreview() {
+        return msgPreview;
+    }
+    public void setMsgPreview(String msgPreview) {
+        this.msgPreview = msgPreview;
+    }
     public String getIconPath() {
         return iconPath;
     }
     String contactName;
+    String msgPreview;
     String iconPath;
 }
 
 class MessageItemRender extends JPanel implements ListCellRenderer {
     JLabel itemTitle;
+    JLabel msgPreview;
     JLabel contactImage;
+    JPanel eastPanel;
 
     public MessageItemRender() {
-        System.out.println("Creating a new MessageItemRenderer()");
         setLayout(new BorderLayout());
         itemTitle = new JLabel();
+        msgPreview = new JLabel();
         contactImage = new JLabel();
+        eastPanel = new JPanel(new BorderLayout());
+        eastPanel.setOpaque(false);
         add(contactImage, BorderLayout.WEST);
-        add(itemTitle, BorderLayout.EAST);
-        setSize(100, 200);
+        setBorder(new EmptyBorder(10, 10, 10, 10));
+        eastPanel.add(itemTitle, BorderLayout.NORTH);
+        eastPanel.add(msgPreview, BorderLayout.SOUTH);
+        add(eastPanel, BorderLayout.EAST);
     }
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         MessageItem item = (MessageItem) value;
         itemTitle.setText(item.getContactName());
+        msgPreview.setText("Msg");
         contactImage.setIcon(new ImageIcon(item.getIconPath()));
         if (isSelected) {
-            setBackground(Color.yellow);
+            setBackground(Color.blue);
+            this.setForeground(Color.white);
+            itemTitle.setForeground(Color.white);
+            msgPreview.setForeground(Color.white);
         } else {
             setBackground(Color.white);
+            this.setForeground(Color.black);
+            itemTitle.setForeground(Color.black);
+            msgPreview.setForeground(Color.black);
         }
         return this;
     }
