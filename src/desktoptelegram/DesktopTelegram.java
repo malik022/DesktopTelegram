@@ -1,7 +1,5 @@
 package desktoptelegram;
 
-import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
-import com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +8,6 @@ import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 /**
  * The main application window.
