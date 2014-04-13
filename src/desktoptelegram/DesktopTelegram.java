@@ -15,11 +15,15 @@ import javax.swing.UIManager;
  */
 public class DesktopTelegram extends javax.swing.JFrame {
 
+    // Constructor -------------------------------------------------------------
     public DesktopTelegram() {
         logger.setLevel(Level.ALL);
         initLookAndFeel();
+
         setTitle("Desktop Telegram");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        add(new TelegramMenuBar(), BorderLayout.NORTH);
 
         messageItems = new ArrayList<MessageItem>();
         messageItems.add(new MessageItem("Contato 1", "assets/contactIconSmall.png"));
